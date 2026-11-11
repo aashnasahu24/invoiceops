@@ -17,6 +17,20 @@ _BADGE_COLORS = {
 }
 
 
+def _warning_messages(detail: Any) -> list[str]:
+    """Return safe warning strings from current or legacy stage detail data."""
+    if not isinstance(detail, dict):
+        return []
+    warnings = detail.get("warnings")
+    if warnings is None:
+        return []
+    if isinstance(warnings, str):
+        return [warnings] if warnings else []
+    if isinstance(warnings, (list, tuple)):
+        return [warning for warning in warnings if isinstance(warning, str) and warning]
+    return []
+
+
 def render_decision_card(
     result: DecisionResult,
     *,
@@ -111,8 +125,9 @@ def render_stage_timeline(events: list[StageEvent]) -> None:
         )
         if event.message:
             status.write(event.message)
-        if event.detail.get("warnings"):
-            status.write("Warnings: " + "; ".join(event.detail["warnings"]))
+        warnings = _warning_messages(event.detail)
+        if warnings:
+            status.write("Warnings: " + "; ".join(warnings))
 
 
 def update_live_stage(
@@ -153,8 +168,9 @@ def update_live_stage(
             )
         if event.message:
             handle.write(event.message)
-        if event.detail.get("warnings"):
-            handle.write("Warnings: " + "; ".join(event.detail["warnings"]))
+        warnings = _warning_messages(event.detail)
+        if warnings:
+            handle.write("Warnings: " + "; ".join(warnings))
 
 
 def render_persisted_timeline(stage_rows: list[Any]) -> None:

@@ -1,4 +1,5 @@
 .env
+.env.docker
 .venv/
 .venv*/
 .uv-cache/
@@ -12,6 +13,7 @@ __pycache__/
 *.db
 *.sqlite
 *.sqlite3
+/final.zip
 
 # Local LLM response caches; the demo cache is intentionally commit-eligible.
 data/llm_cache_*/

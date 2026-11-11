@@ -103,6 +103,13 @@ def test_happy_path_persists_invoice_and_stages_in_order(session_factory):
         assert all(row.status == StageStatus.COMPLETED for row in run.stages)
         assert session.scalar(select(func.count()).select_from(InvoiceORM)) == 1
         assert [event.stage for event in yielded[:-1] if event.status == StageStatus.RUNNING] == list(StageName)
+        assert all(isinstance(event.detail["warnings"], list) for event in yielded[:-1])
+        validation_event = next(
+            event for event in yielded[:-1]
+            if event.stage == StageName.VALIDATION and event.status == StageStatus.COMPLETED
+        )
+        assert all(isinstance(message, str) for message in validation_event.detail["warnings"])
+        assert validation_event.detail["warning_count"] == len(validation_event.detail["warnings"])
 
 
 def test_exact_hash_duplicate_rejected_without_second_invoice(session_factory):

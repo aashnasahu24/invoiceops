@@ -111,11 +111,15 @@ implemented. See [`docs/stage4_notes.md`](docs/stage4_notes.md) for policy limit
 Run the ordered manifest offline using the committed replay cache:
 
 ```bash
-python -m scripts.run_manifest --provider replay --reset
+PG_TEST_URI=postgresql://.../invoiceops_test python -m scripts.run_manifest --provider replay --reset
 ```
 
-`--reset` clears prior invoice history before the run; use it only with disposable
-or local demo data. Production disables reset unless `ENABLE_DEMO_RESET=true`.
+Manifest execution requires `PG_TEST_URI` (or an explicit `--database-url`) to name
+a separate disposable database; it never falls back to `DATABASE_URL`. PostgreSQL
+targets must have a test-named database, and a target equal to `DATABASE_URL` is
+rejected. `--reset` clears prior invoice history in that test database before the
+run; preserve replay fixtures in `data/llm_cache_demo/`. The production Streamlit
+UI does not expose manifest execution.
 `--provider gemini` runs live and records responses.
 The manifest performs the scanned-invoice REQUEST_INFORMATION action before the
 corrected resubmission fixture. Do not regenerate the existing PDFs: the test
@@ -273,8 +277,17 @@ docker run --rm --env-file .env -e PORT=8501 -p 8501:8501 invoiceops
 ```
 
 The container uses a non-root account and binds Streamlit to `0.0.0.0:$PORT`.
-Configure the deployment platform to pass its assigned `PORT` and the Neon/Gemini
-environment variables. Run the preflight before deploying:
+Render supplies `PORT`; do not hardcode it in Render environment settings. Use a
+Render Docker web service pointed at this repository's Dockerfile, and configure
+the variables listed below in Render's environment settings. Build and verify the
+image locally with the reusable check (it creates and removes only its own temporary
+container; supply a non-production verification env file):
+
+```powershell
+.\scripts\verify_docker.ps1 -EnvironmentFile .env.docker
+```
+
+Run the application preflight before deploying:
 
 ```bash
 python -m scripts.smoke_test
@@ -285,6 +298,23 @@ and readable replay-cache entries; it does not make a Gemini request. Free hosti
 may suspend an idle service. Before a demo, open the deployed URL, wait for the app
 to finish waking and display the Dashboard, then process a replay-cache fixture
 before choosing Gemini for a live call.
+
+Set these Render environment variables (keep secrets in Render, not in Git):
+
+```text
+APP_ENV=production
+DATABASE_URL=<Neon application database URL>
+GEMINI_API_KEY=<Gemini API key>
+GEMINI_MODEL=<supported Gemini model>
+AUTO_SEED_REFERENCE_DATA=false
+ENABLE_DEMO_RESET=false
+ENABLE_REVIEWER_ACTIONS=false
+```
+
+Render supplies `PORT`. Do not configure `PG_TEST_URI` on the application service;
+it is reserved for a separate disposable test database. To enable reviewer actions
+intentionally, configure `ENABLE_REVIEWER_ACTIONS=true` and a private
+`REVIEWER_ACCESS_KEY`. Keep reset disabled for retained application data.
 
 ## Schema changes
 

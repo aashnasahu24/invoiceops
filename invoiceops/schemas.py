@@ -345,5 +345,25 @@ class StageEvent(BaseModel):
     stage: StageName
     status: StageStatus
     message: str = ""
-    detail: dict[str, Any] = Field(default_factory=dict)
+    detail: dict[str, Any] = Field(default_factory=dict, validate_default=True)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @field_validator("detail", mode="before")
+    @classmethod
+    def normalize_warning_detail(cls, value: Any) -> Any:
+        if value is None:
+            value = {}
+        if not isinstance(value, dict):
+            return value
+
+        detail = dict(value)
+        warnings = detail.get("warnings")
+        if warnings is None:
+            detail["warnings"] = []
+        elif isinstance(warnings, str):
+            detail["warnings"] = [warnings] if warnings else []
+        elif isinstance(warnings, (list, tuple)):
+            detail["warnings"] = [str(item) for item in warnings if item is not None]
+        else:
+            detail["warnings"] = []
+        return detail

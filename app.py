@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -128,6 +129,13 @@ def _render_decision_metadata(detail: dict[str, Any]) -> None:
 
 def _display_decision(decision: Decision | None) -> str:
     return decision.value.replace("_", " ").title() if decision else "—"
+
+
+def _page_options(settings) -> list[str]:
+    pages = ["Process invoice", "Dashboard", "Review queue"]
+    if not settings.is_production:
+        pages.append("Run all fixtures")
+    return pages
 
 
 def _provider(provider_name: str):
@@ -483,23 +491,55 @@ def _review_queue_page(factory: sessionmaker[Session], settings) -> None:
             st.error(str(exc))
 
 
-def _manifest_page(
-    factory: sessionmaker[Session],
-    provider_name: str,
-    *,
-    allow_reset: bool,
-) -> None:
-    from scripts.run_manifest import run_manifest
-
+def _manifest_page(provider_name: str, settings) -> None:
+    if settings.is_production:
+        st.error("Manifest execution is disabled in production.")
+        return
     st.header("Run all fixtures")
+    test_database_url = os.getenv("PG_TEST_URI")
+    if not test_database_url:
+        st.info("Configure PG_TEST_URI for a separate disposable test database to run the manifest.")
+        return
+    from scripts.run_manifest import run_manifest, validate_manifest_database_url
+
+    try:
+        test_database_url = validate_manifest_database_url(
+            test_database_url,
+            settings.database_url,
+        )
+    except ValueError as exc:
+        st.error(f"Manifest execution is unavailable: {exc}")
+        return
+
     reset = False
-    if allow_reset:
-        reset = st.checkbox("Reset demo data before running the manifest", key="manifest-reset")
+    if settings.enable_demo_reset:
+        reset = st.checkbox(
+            "Reset the disposable manifest database before running",
+            key="manifest-reset",
+        )
     else:
-        st.caption("Manifest reset is disabled by configuration.")
+        st.caption("Manifest database reset is disabled by configuration.")
     if not st.button("Run manifest", type="primary"):
         return
-    report = run_manifest(_provider(provider_name), factory, reset=reset)
+    try:
+        provider = _provider(provider_name)
+    except ValueError as exc:
+        st.error(str(exc))
+        return
+
+    engine = create_db_engine(test_database_url)
+    try:
+        init_db(engine)
+        manifest_factory = create_session_factory(engine)
+        with manifest_factory.begin() as session:
+            seed_reference_data(session, PROJECT_ROOT / "data")
+        report = run_manifest(provider, manifest_factory, reset=reset)
+    except ValueError as exc:
+        st.error(f"Manifest execution failed: {exc}")
+        return
+    finally:
+        engine.dispose()
+
     st.dataframe(
         [
             {
@@ -510,6 +550,7 @@ def _manifest_page(
                     ", ".join(row["expected_checks"]) + " / " + ", ".join(row["present_checks"])
                 ),
                 "Pass": row["pass"],
+                "Post-action error": row.get("post_action_error") or "",
                 "Duration (s)": round(row["duration_seconds"], 2),
                 "Cache hit": row["cache_hit"],
             }
@@ -520,6 +561,8 @@ def _manifest_page(
     )
     for row in report["rows"]:
         st.write(f"**{row['fixture']}** — {row['summary']}")
+        if row.get("post_action_error"):
+            st.error(row["post_action_error"])
     if report["passed"]:
         st.success(f"Manifest passed in {report['total_seconds']:.2f}s.")
     else:
@@ -544,10 +587,7 @@ def main() -> None:
         settings.auto_seed_reference_data,
     )
     st.title("InvoiceOps")
-    page = st.sidebar.radio(
-        "Page",
-        ["Process invoice", "Dashboard", "Review queue", "Run all fixtures"],
-    )
+    page = st.sidebar.radio("Page", _page_options(settings))
     provider_name = st.sidebar.selectbox("Extraction provider", ["Gemini", "Replay"])
     if settings.enable_demo_reset:
         confirm_reset = st.sidebar.checkbox("I understand this deletes demo processing history")
@@ -569,8 +609,8 @@ def main() -> None:
         _dashboard_page(factory)
     elif page == "Review queue":
         _review_queue_page(factory, settings)
-    else:
-        _manifest_page(factory, provider_name, allow_reset=settings.enable_demo_reset)
+    elif page == "Run all fixtures":
+        _manifest_page(provider_name, settings)
 
 
 if __name__ == "__main__":

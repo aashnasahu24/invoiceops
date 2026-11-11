@@ -503,7 +503,10 @@ def _process_invoice_pipeline(
         f"Completed {len(checks)} validation checks.",
         {
             "failed": sum(check.status == CheckStatus.FAILED for check in checks),
-            "warnings": sum(check.status == CheckStatus.WARNING for check in checks),
+            "warnings": [
+                check.message for check in checks if check.status == CheckStatus.WARNING
+            ],
+            "warning_count": sum(check.status == CheckStatus.WARNING for check in checks),
         },
     )
 
