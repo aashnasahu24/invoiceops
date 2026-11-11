@@ -1,0 +1,85 @@
+{
+  "instructions_sha256": "6f29ebb8fb16eff7e43ef40548d40566834189f5f442f26eca783dda0e1d52fe",
+  "text_sha256": "079b8908d4e679cd3528e3fbb72f077020d09ae1d8b27e1b8b39bc9da491e97d",
+  "response": {
+    "invoice_number": "INV-2026-301",
+    "invoice_date": "2026-10-22",
+    "due_date": null,
+    "vendor_name": "ABC Technologies Private Limited",
+    "vendor_tax_id": "29ABCDE1234F1Z5",
+    "po_number": "PO-1003",
+    "currency": "INR",
+    "line_items": [
+      {
+        "description": "Network Equipment",
+        "sku": null,
+        "quantity": "4",
+        "unit_price": "10,000.00",
+        "line_total": "40,000.00",
+        "tax_rate": null
+      }
+    ],
+    "subtotal": "40,000.00",
+    "tax_total": "7,200.00",
+    "shipping": "0.00",
+    "discount": "0.00",
+    "grand_total": "47,200.00",
+    "evidence": [
+      {
+        "field": "invoice_number",
+        "page": 1,
+        "snippet": "Invoice Number: INV-2026-301"
+      },
+      {
+        "field": "invoice_date",
+        "page": 1,
+        "snippet": "Invoice Date: 22 October 2026"
+      },
+      {
+        "field": "vendor_name",
+        "page": 1,
+        "snippet": "Vendor: ABC Technologies Private Limited"
+      },
+      {
+        "field": "vendor_tax_id",
+        "page": 1,
+        "snippet": "GSTIN: 29ABCDE1234F1Z5"
+      },
+      {
+        "field": "po_number",
+        "page": 1,
+        "snippet": "PO Reference: PO-1003"
+      },
+      {
+        "field": "currency",
+        "page": 1,
+        "snippet": "Currency: INR"
+      },
+      {
+        "field": "subtotal",
+        "page": 1,
+        "snippet": "Subtotal: | 40,000.00"
+      },
+      {
+        "field": "tax_total",
+        "page": 1,
+        "snippet": "GST: | 7,200.00"
+      },
+      {
+        "field": "shipping",
+        "page": 1,
+        "snippet": "Shipping: | 0.00"
+      },
+      {
+        "field": "discount",
+        "page": 1,
+        "snippet": "Discount: | 0.00"
+      },
+      {
+        "field": "grand_total",
+        "page": 1,
+        "snippet": "Grand Total: | 47,200.00"
+      }
+    ]
+  }
+}

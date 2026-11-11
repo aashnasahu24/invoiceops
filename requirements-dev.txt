@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=8,<9
+reportlab>=4,<6           # only for scripts/generate_sample_invoices.py
+# Optional: embedded real PostgreSQL for tests/test_pg_parity.py (see README)
+# pgserver

@@ -1,0 +1,79 @@
+{
+  "instructions_sha256": "6f29ebb8fb16eff7e43ef40548d40566834189f5f442f26eca783dda0e1d52fe",
+  "response": {
+    "invoice_number": "INV-2026-302",
+    "invoice_date": "2026-10-23",
+    "due_date": null,
+    "vendor_name": "ABC Technologies",
+    "vendor_tax_id": null,
+    "po_number": "PO-1003",
+    "currency": "INR",
+    "line_items": [
+      {
+        "description": "Network Equipment",
+        "sku": null,
+        "quantity": "6",
+        "unit_price": "10000.00",
+        "line_total": "60000.00",
+        "tax_rate": null
+      }
+    ],
+    "subtotal": "60000.00",
+    "tax_total": "10800.00",
+    "shipping": "0.00",
+    "discount": "0.00",
+    "grand_total": "70800.00",
+    "evidence": [
+      {
+        "field": "invoice_number",
+        "page": 1,
+        "snippet": "Invoice Number: INV-2026-302"
+      },
+      {
+        "field": "invoice_date",
+        "page": 1,
+        "snippet": "Invoice Date: 23 October 2026"
+      },
+      {
+        "field": "vendor_name",
+        "page": 1,
+        "snippet": "Vendor: ABC Technologies"
+      },
+      {
+        "field": "po_number",
+        "page": 1,
+        "snippet": "PO Reference: PO-1003"
+      },
+      {
+        "field": "currency",
+        "page": 1,
+        "snippet": "Currency: INR"
+      },
+      {
+        "field": "subtotal",
+        "page": 1,
+        "snippet": "Subtotal: | 60,000.00"
+      },
+      {
+        "field": "tax_total",
+        "page": 1,
+        "snippet": "GST: | 10,800.00"
+      },
+      {
+        "field": "shipping",
+        "page": 1,
+        "snippet": "Shipping: | 0.00"
+      },
+      {
+        "field": "discount",
+        "page": 1,
+        "snippet": "Discount: | 0.00"
+      },
+      {
+        "field": "grand_total",
+        "page": 1,
+        "snippet": "Grand Total: | 70,800.00"
+      }
+    ]
+  }
+}

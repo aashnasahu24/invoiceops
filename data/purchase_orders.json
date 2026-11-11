@@ -1,0 +1,65 @@
+[
+  {
+    "po_id": "POID-1001",
+    "po_number": "PO-1001",
+    "vendor_id": "V001",
+    "currency": "INR",
+    "total_amount": "50000.00",
+    "amount_basis": "PRE_TAX",
+    "status": "OPEN",
+    "line_items": [
+      {"description": "Software License", "sku": "SW-01", "quantity_ordered": "20", "unit_price": "2000.00", "line_total": "40000.00"},
+      {"description": "Support Services", "sku": "SUP-01", "quantity_ordered": "2", "unit_price": "5000.00", "line_total": "10000.00"}
+    ]
+  },
+  {
+    "po_id": "POID-1002",
+    "po_number": "PO-1002",
+    "vendor_id": "V002",
+    "currency": "INR",
+    "total_amount": "75000.00",
+    "amount_basis": "PRE_TAX",
+    "status": "OPEN",
+    "line_items": [
+      {"description": "Laptop", "sku": "HW-LAP-01", "quantity_ordered": "4", "unit_price": "15000.00", "line_total": "60000.00"},
+      {"description": "Laptop Service", "sku": "HW-SVC-01", "quantity_ordered": "1", "unit_price": "10000.00", "line_total": "10000.00"},
+      {"description": "Accessories", "sku": "HW-ACC-01", "quantity_ordered": "1", "unit_price": "5000.00", "line_total": "5000.00"}
+    ]
+  },
+  {
+    "po_id": "POID-1003",
+    "po_number": "PO-1003",
+    "vendor_id": "V001",
+    "currency": "INR",
+    "total_amount": "100000.00",
+    "amount_basis": "PRE_TAX",
+    "status": "OPEN",
+    "line_items": [
+      {"description": "Network Equipment", "sku": "NET-01", "quantity_ordered": "10", "unit_price": "10000.00", "line_total": "100000.00"}
+    ]
+  },
+  {
+    "po_id": "POID-1004",
+    "po_number": "PO-1004",
+    "vendor_id": "V004",
+    "currency": "INR",
+    "total_amount": "30000.00",
+    "amount_basis": "PRE_TAX",
+    "status": "OPEN",
+    "line_items": [
+      {"description": "Data Analysis Services", "sku": "SVC-DA-01", "quantity_ordered": "3", "unit_price": "10000.00", "line_total": "30000.00"}
+    ]
+  },
+  {
+    "po_id": "POID-1005",
+    "po_number": "PO-1005",
+    "vendor_id": "V003",
+    "currency": "INR",
+    "total_amount": "15000.00",
+    "amount_basis": "PRE_TAX",
+    "status": "OPEN",
+    "line_items": [
+      {"description": "IT Support", "sku": "SVC-IT-01", "quantity_ordered": "1", "unit_price": "15000.00", "line_total": "15000.00"}
+    ]
+  }
+]

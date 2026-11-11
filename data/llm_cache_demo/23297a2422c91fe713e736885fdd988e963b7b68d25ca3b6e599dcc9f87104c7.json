@@ -1,0 +1,93 @@
+{
+  "instructions_sha256": "6f29ebb8fb16eff7e43ef40548d40566834189f5f442f26eca783dda0e1d52fe",
+  "text_sha256": "92c7ecf290d14c98654d14a9a29e0b89bc1aab12f709a61753ebb3297d0bb2c1",
+  "response": {
+    "invoice_number": "INV-2026-104",
+    "invoice_date": "2026-10-15",
+    "due_date": null,
+    "vendor_name": "ABC Technologies Pvt Ltd",
+    "vendor_tax_id": "29ABCDE1234F1Z5",
+    "po_number": "PO-1001",
+    "currency": "INR",
+    "line_items": [
+      {
+        "description": "Software License",
+        "sku": null,
+        "quantity": "10",
+        "unit_price": "2,000.00",
+        "line_total": "20,000.00",
+        "tax_rate": null
+      },
+      {
+        "description": "Support Services",
+        "sku": null,
+        "quantity": "1",
+        "unit_price": "5,000.00",
+        "line_total": "5,000.00",
+        "tax_rate": null
+      }
+    ],
+    "subtotal": "25,000.00",
+    "tax_total": "4,500.00",
+    "shipping": "0.00",
+    "discount": "0.00",
+    "grand_total": "29,500.00",
+    "evidence": [
+      {
+        "field": "invoice_number",
+        "page": 1,
+        "snippet": "Inv No.: INV-2026-104"
+      },
+      {
+        "field": "invoice_date",
+        "page": 1,
+        "snippet": "Date: 15/10/2026"
+      },
+      {
+        "field": "vendor_name",
+        "page": 1,
+        "snippet": "Bill From: ABC Technologies Pvt Ltd"
+      },
+      {
+        "field": "vendor_tax_id",
+        "page": 1,
+        "snippet": "GST No.: 29ABCDE1234F1Z5"
+      },
+      {
+        "field": "po_number",
+        "page": 1,
+        "snippet": "Customer PO: PO-1001"
+      },
+      {
+        "field": "currency",
+        "page": 1,
+        "snippet": "Currency: INR"
+      },
+      {
+        "field": "subtotal",
+        "page": 1,
+        "snippet": "Sub Total: | 25,000.00"
+      },
+      {
+        "field": "tax_total",
+        "page": 1,
+        "snippet": "Tax (18%): | 4,500.00"
+      },
+      {
+        "field": "shipping",
+        "page": 1,
+        "snippet": "Freight: | 0.00"
+      },
+      {
+        "field": "discount",
+        "page": 1,
+        "snippet": "Less: Discount: | 0.00"
+      },
+      {
+        "field": "grand_total",
+        "page": 1,
+        "snippet": "Total Due: | 29,500.00"
+      }
+    ]
+  }
+}

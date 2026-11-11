@@ -1,0 +1,75 @@
+{
+  "instructions_sha256": "6f29ebb8fb16eff7e43ef40548d40566834189f5f442f26eca783dda0e1d52fe",
+  "text_sha256": "6dbb1c65b596bd6534ce6f3bf2abf3c44b4aac4a67d31bb77aa14359af7d7dd2",
+  "response": {
+    "invoice_number": "INV-2026-221",
+    "invoice_date": "2026-10-20",
+    "due_date": null,
+    "vendor_name": "XYZ Solutions",
+    "vendor_tax_id": "27AAACX1234A1Z2",
+    "po_number": null,
+    "currency": "INR",
+    "line_items": [
+      {
+        "description": "Laptop Service",
+        "sku": null,
+        "quantity": "1",
+        "unit_price": "10,000.00",
+        "line_total": "1000000",
+        "tax_rate": null
+      }
+    ],
+    "subtotal": "10,000.00",
+    "tax_total": "1,80000",
+    "shipping": null,
+    "discount": null,
+    "grand_total": "11,800.00",
+    "evidence": [
+      {
+        "field": "vendor_name",
+        "page": 1,
+        "snippet": "Vendor: XYZ Solutions"
+      },
+      {
+        "field": "vendor_tax_id",
+        "page": 1,
+        "snippet": "GSTIN: 27AAACX1234A1Z2"
+      },
+      {
+        "field": "invoice_number",
+        "page": 1,
+        "snippet": "Invoice Number: INV-2026-221"
+      },
+      {
+        "field": "invoice_date",
+        "page": 1,
+        "snippet": "Invoice Date: 20 October 2026"
+      },
+      {
+        "field": "po_number",
+        "page": 1,
+        "snippet": "POReference:[NOTPROVIDED]"
+      },
+      {
+        "field": "currency",
+        "page": 1,
+        "snippet": "Currency:INRO"
+      },
+      {
+        "field": "subtotal",
+        "page": 1,
+        "snippet": "§ubtotal: 10,000.00"
+      },
+      {
+        "field": "tax_total",
+        "page": 1,
+        "snippet": "GST:1,80000"
+      },
+      {
+        "field": "grand_total",
+        "page": 1,
+        "snippet": "Grand Total: 11,800.00"
+      }
+    ]
+  }
+}

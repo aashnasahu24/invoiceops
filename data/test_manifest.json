@@ -1,0 +1,22 @@
+{
+  "notes": [
+    "All names, tax identifiers, purchase orders and invoice details are synthetic test data.",
+    "Process happy_path_invoice.pdf before duplicate_invoice.pdf so the duplicate business key exists in history.",
+    "Process split_invoice_1.pdf before split_invoice_2.pdf; the second invoice consumes the remaining PO balance.",
+    "PO amounts are pre-tax. Invoice net amount is subtotal + shipping - discount.",
+    "The 2% tolerance applies to comparable line-item unit prices; it does not permit exceeding the remaining PO balance."
+  ],
+  "cases": [
+    {"file": "happy_path_invoice.pdf", "scenario": "Clean digital invoice", "expected_decision": "APPROVED", "must_include_checks": ["required_fields_present", "line_on_po", "unit_price_variance", "quantity_vs_ordered", "po_balance"], "expected_reason": "Vendor and PO match; arithmetic and remaining PO balance pass."},
+    {"file": "duplicate_invoice.pdf", "scenario": "Same vendor and invoice number as the happy-path invoice, different PDF bytes", "expected_decision": "REJECTED", "must_include_checks": ["duplicate_business_key"], "expected_reason": "Duplicate business key detected after the first invoice is processed."},
+    {"file": "scanned_missing_po.pdf", "scenario": "Image-only scanned invoice with no readable PO reference", "expected_decision": "MANUAL_REVIEW", "must_include_checks": ["ocr_confidence", "po_found", "required_fields_present", "arithmetic_consistency"], "post_action": {"action": "REQUEST_INFORMATION", "reviewer": "Manifest runner", "comment": "Please provide the missing purchase order reference."}, "expected_reason": "The PO reference is absent; low OCR confidence and missing PO require review."},
+    {"file": "resubmitted_clean.pdf", "scenario": "Clean corrected resubmission after the scanned invoice is returned", "expected_decision": "APPROVED", "must_include_checks": ["line_on_po", "unit_price_variance", "quantity_vs_ordered", "po_balance"], "expected_reason": "The returned invoice is inactive; the corrected invoice matches PO-1002."},
+    {"file": "po_overrun_invoice.pdf", "scenario": "Invoice exceeds PO total and line price differs by more than tolerance", "expected_decision": "MANUAL_REVIEW", "must_include_checks": ["po_balance", "unit_price_variance"], "expected_reason": "Remaining PO balance and line-price checks require review."},
+    {"file": "split_invoice_1.pdf", "scenario": "First partial invoice against PO-1003", "expected_decision": "APPROVED", "must_include_checks": ["line_on_po", "po_balance", "quantity_vs_ordered"], "expected_reason": "₹40,000 pre-tax against a ₹100,000 PO."},
+    {"file": "split_invoice_2.pdf", "scenario": "Second partial invoice against PO-1003; run after split_invoice_1.pdf", "expected_decision": "APPROVED", "must_include_checks": ["line_on_po", "po_balance", "quantity_vs_ordered"], "expected_reason": "₹60,000 pre-tax consumes the exact remaining PO balance."},
+    {"file": "blocked_vendor_invoice.pdf", "scenario": "Invoice from a vendor marked BLOCKED", "expected_decision": "REJECTED", "must_include_checks": ["vendor_status"], "expected_reason": "Vendor policy is a hard rejection condition."},
+    {"file": "impersonation_wrong_taxid.pdf", "scenario": "V001 name paired with an unrecognized tax ID", "expected_decision": "MANUAL_REVIEW", "must_include_checks": ["vendor_identity_conflict"], "expected_reason": "The name matches a supplier but the extracted tax ID matches no supplier."},
+    {"file": "inflated_line_total.pdf", "scenario": "Line total is inflated although subtotal, tax, and grand total agree", "expected_decision": "MANUAL_REVIEW", "must_include_checks": ["line_arithmetic"], "expected_reason": "The line quantity multiplied by unit price differs from the stated line total."},
+    {"file": "currency_mismatch.pdf", "scenario": "USD invoice against an INR purchase order", "expected_decision": "MANUAL_REVIEW", "must_include_checks": ["currency_match"], "expected_reason": "Invoice and purchase-order currencies differ."}
+  ]
+}

@@ -1,0 +1,11 @@
+# Runtime dependencies (what the deployed app installs)
+pydantic>=2.7,<3
+PyMuPDF>=1.24.3,<2        # 1.24.3+ provides the `pymupdf` import name
+Pillow>=10.1,<14          # 10.1+ for sized default fonts / current Pillow APIs
+pytesseract>=0.3.10,<1    # wrapper only: the Tesseract binary is installed separately
+rapidfuzz>=3.9,<4
+SQLAlchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+streamlit>=1.38,<2
+python-dotenv>=1.0,<2
+google-genai>=2.34,<3.0

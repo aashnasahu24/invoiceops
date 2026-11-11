@@ -1,0 +1,12 @@
+.env
+.venv
+__pycache__
+.pytest_cache
+.git
+*.py[cod]
+*.db
+*.sqlite
+*.sqlite3
+data/llm_cache_*/
+!data/llm_cache_demo/
+!data/llm_cache_demo/**

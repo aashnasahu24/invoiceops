@@ -1,0 +1,34 @@
+[
+  {
+    "vendor_id": "V001",
+    "legal_name": "ABC Technologies Private Limited",
+    "aliases": ["ABC Technologies Pvt Ltd", "ABC Technologies", "ABC Tech"],
+    "tax_id": "29ABCDE1234F1Z5",
+    "country": "IN",
+    "status": "APPROVED"
+  },
+  {
+    "vendor_id": "V002",
+    "legal_name": "XYZ Solutions Private Limited",
+    "aliases": ["XYZ Solutions", "XYZ Solutions Pvt Ltd"],
+    "tax_id": "27AAACX1234A1Z2",
+    "country": "IN",
+    "status": "APPROVED"
+  },
+  {
+    "vendor_id": "V003",
+    "legal_name": "Delta Systems Limited",
+    "aliases": ["Delta Systems", "Delta Systems Ltd"],
+    "tax_id": "29AAACD1234A1Z8",
+    "country": "IN",
+    "status": "BLOCKED"
+  },
+  {
+    "vendor_id": "V004",
+    "legal_name": "Northstar Analytics Private Limited",
+    "aliases": ["Northstar Analytics", "Northstar Analytics Pvt Ltd"],
+    "tax_id": "36AABCN1234B1Z4",
+    "country": "IN",
+    "status": "APPROVED"
+  }
+]

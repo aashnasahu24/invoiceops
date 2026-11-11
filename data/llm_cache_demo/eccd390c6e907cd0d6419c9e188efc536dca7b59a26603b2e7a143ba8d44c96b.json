@@ -1,0 +1,85 @@
+{
+  "instructions_sha256": "6f29ebb8fb16eff7e43ef40548d40566834189f5f442f26eca783dda0e1d52fe",
+  "text_sha256": "c50cc0936b6ee710a06fa59d4e4de9f9649c248e80a907705c58119c857be714",
+  "response": {
+    "invoice_number": "INV-2026-221",
+    "invoice_date": "2026-10-20",
+    "due_date": null,
+    "vendor_name": "XYZ Solutions",
+    "vendor_tax_id": "27AAACX1234A1Z2",
+    "po_number": "PO-1002",
+    "currency": "INR",
+    "line_items": [
+      {
+        "description": "Laptop Service",
+        "sku": null,
+        "quantity": "1",
+        "unit_price": "10,000.00",
+        "line_total": "10,000.00",
+        "tax_rate": null
+      }
+    ],
+    "subtotal": "10,000.00",
+    "tax_total": "1,800.00",
+    "shipping": "0.00",
+    "discount": "0.00",
+    "grand_total": "11,800.00",
+    "evidence": [
+      {
+        "field": "invoice_number",
+        "page": 1,
+        "snippet": "Invoice Number: INV-2026-221"
+      },
+      {
+        "field": "invoice_date",
+        "page": 1,
+        "snippet": "Invoice Date: 20 October 2026"
+      },
+      {
+        "field": "vendor_name",
+        "page": 1,
+        "snippet": "Vendor: XYZ Solutions"
+      },
+      {
+        "field": "vendor_tax_id",
+        "page": 1,
+        "snippet": "GSTIN: 27AAACX1234A1Z2"
+      },
+      {
+        "field": "po_number",
+        "page": 1,
+        "snippet": "PO Reference: PO-1002"
+      },
+      {
+        "field": "currency",
+        "page": 1,
+        "snippet": "Currency: INR"
+      },
+      {
+        "field": "subtotal",
+        "page": 1,
+        "snippet": "Subtotal: | 10,000.00"
+      },
+      {
+        "field": "tax_total",
+        "page": 1,
+        "snippet": "GST: | 1,800.00"
+      },
+      {
+        "field": "shipping",
+        "page": 1,
+        "snippet": "Shipping: | 0.00"
+      },
+      {
+        "field": "discount",
+        "page": 1,
+        "snippet": "Discount: | 0.00"
+      },
+      {
+        "field": "grand_total",
+        "page": 1,
+        "snippet": "Grand Total: | 11,800.00"
+      }
+    ]
+  }
+}

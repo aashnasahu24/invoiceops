@@ -1,0 +1,19 @@
+.env
+.venv/
+.venv*/
+.uv-cache/
+.temp-work/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.DS_Store
+
+# Local database and runtime artifacts
+*.db
+*.sqlite
+*.sqlite3
+
+# Local LLM response caches; the demo cache is intentionally commit-eligible.
+data/llm_cache_*/
+!data/llm_cache_demo/
+!data/llm_cache_demo/**
